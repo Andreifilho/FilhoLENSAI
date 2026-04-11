@@ -1,0 +1,7 @@
+rawpy
+opencv-python
+numpy
+pandas
+pillow
+python-dotenv
+requests
