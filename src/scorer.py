@@ -22,4 +22,5 @@ def score_folder(folder_path):
              jpgimages = os.path.join(folder_path, filename) 
              result = sharpness_score(jpgimages)
              list_rate.append({"filename": filename, "score": result})
+             list_rate.sort(key=lambda x: x['score'], reverse=True)
         return list_rate
