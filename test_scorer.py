@@ -1,6 +1,4 @@
-from src.scorer import score_folder
+from src.scorer import detect_people
 
-results = score_folder('data/raw/aum')
-
-for r in results:
-    print(r['score'], '—', r['filename'])
+result = detect_people('data/raw/aum/DSC03866-6.jpg')
+print(result)

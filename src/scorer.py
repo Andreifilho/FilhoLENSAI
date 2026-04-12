@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import os
+from ultralytics import YOLO
 
 def sharpness_score(image_path: str) -> float:
     """
@@ -22,5 +23,12 @@ def score_folder(folder_path):
              jpgimages = os.path.join(folder_path, filename) 
              result = sharpness_score(jpgimages)
              list_rate.append({"filename": filename, "score": result})
-             list_rate.sort(key=lambda x: x['score'], reverse=True)
+        list_rate.sort(key=lambda x: x['score'], reverse=True)
         return list_rate
+
+def detect_people(image_path): 
+    model = YOLO("yolov8n.pt")
+    results = model(image_path)
+    person_count = len(results[0].boxes.cls)
+    
+    return person_count
