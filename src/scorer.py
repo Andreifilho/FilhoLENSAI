@@ -33,3 +33,10 @@ def detect_people(image_path):
     biggest = max(results[0].boxes.xywh, key=lambda box: box[2] * box[3])
     subject_size = float(biggest[2] * biggest[3]) / (results[0].orig_shape[0] * results[0].orig_shape[1])
     return {"person_count": person_count, "subject_size": subject_size}
+
+def standard_score(image_path):
+    result1 = sharpness_score(image_path)
+    normalized = min(result1 / 1000, 1.0)
+    result2 = detect_people(image_path)
+    mid_score = (normalized * 0.25) + result2['subject_size'] *0.25
+    return mid_score
