@@ -29,6 +29,7 @@ def score_folder(folder_path):
 def detect_people(image_path): 
     model = YOLO("yolov8n.pt")
     results = model(image_path)
-    person_count = len(results[0].boxes.cls)
-    
-    return person_count
+    person_count = int (len(results[0].boxes.cls))
+    biggest = max(results[0].boxes.xywh, key=lambda box: box[2] * box[3])
+    subject_size = float(biggest[2] * biggest[3]) / (results[0].orig_shape[0] * results[0].orig_shape[1])
+    return {"person_count": person_count, "subject_size": subject_size}
